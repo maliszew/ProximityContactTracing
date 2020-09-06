@@ -1,8 +1,12 @@
 package com.maliszew.proximitycontacttracing.models
 
 import android.util.Log
+import com.estimote.proximity_sdk.api.ProximityZoneContext
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Exclude
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.util.*
 
 data class Contacts(
     var receiver: String, // current user or device
@@ -13,12 +17,11 @@ data class Contacts(
     var eventType: String // onEnter or onExit
 ) {
 
-    @Exclude
-    private lateinit var database: DatabaseReference
+    private var database: DatabaseReference = Firebase.database.reference
 
     @Exclude
-    private fun writeNewContact(receiverId: String, senderName: String, senderId: String, time: String, tracingType: String, eventType: String) {
-        val contact = Contacts(receiverId, senderName, senderId, time, tracingType, eventType)
+    private fun writeNewContact(contact: Contacts /*receiverId: String, senderName: String, senderId: String, time: String, tracingType: String, eventType: String*/) {
+        // val contact = Contacts(receiverId, senderName, senderId, time, tracingType, eventType)
         val contactValues = contact.toMap()
 
         val key = database.child("contacts").push().key
@@ -32,6 +35,7 @@ data class Contacts(
         )
 
         database.updateChildren(childUpdates)
+        Log.d("maliszew/Contacts", "writing contact into db: $childUpdates")
     }
 
     @Exclude
@@ -44,5 +48,22 @@ data class Contacts(
             "tracingType" to tracingType,
             "eventType" to eventType
         )
+    }
+
+    companion object {
+        fun logContacts(contexts: Set<ProximityZoneContext>, eventType: String, tracingType: String) {
+            for(context in contexts) {
+                val contact: Contacts = Contacts(
+                    "2", // TODO replace with real device ID
+                    context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!",
+                    context.deviceId,
+                    Calendar.getInstance().timeInMillis.toString(), // LocalDateTime.now().toString() -> requires API level 26
+                    tracingType,
+                    eventType
+                )
+                contact.writeNewContact(contact)
+                Log.d("maliszew/Contacts", "building Contacts object: $contact")
+            }
+        }
     }
 }

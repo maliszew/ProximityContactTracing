@@ -72,6 +72,10 @@ class ProximityManager(private val context: Context) {
             deletedContexts = previousSet subtract currentSet
         }
 
+        Contacts.logContacts(newContexts, "onEnter", "automatic")
+        Contacts.logContacts(deletedContexts, "onExit", "automatic")
+
+        //TODO remove both loops as not needed for anything apart from logging
         for(context in newContexts) {
             Log.d("maliszew/Scanner", "new Enter... context: $context and ${context.deviceId}")
         }
@@ -80,5 +84,7 @@ class ProximityManager(private val context: Context) {
             Log.d("maliszew/Scanner", "new Exit... context: $context and ${context.deviceId}")
         }
     }
+
+
 
 }
