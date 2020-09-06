@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "472305614021",
+    "firebase_url": "https://proximity-contact-tracing.firebaseio.com",
+    "project_id": "proximity-contact-tracing",
+    "storage_bucket": "proximity-contact-tracing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472305614021:android:f0c2852d9c53f38680c4ac",
+        "android_client_info": {
+          "package_name": "com.maliszew.proximitycontacttracing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472305614021-926h61hvd7ofd6o2fi6hvvr744pko5fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByE8UPKlQqt35GNfmN4t_J3yA2M9KPexo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472305614021-926h61hvd7ofd6o2fi6hvvr744pko5fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
