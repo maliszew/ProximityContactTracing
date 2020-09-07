@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.maliszew.proximitycontacttracing.models.ProximityManager
@@ -11,7 +12,7 @@ import com.maliszew.proximitycontacttracing.views.MainFragment
 import com.maliszew.proximitycontacttracing.databinding.*
 import com.maliszew.proximitycontacttracing.viewmodels.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
     private var proximityContentManager: ProximityManager? = null
     lateinit var viewModel: MainViewModel
 
