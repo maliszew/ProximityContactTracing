@@ -2,6 +2,7 @@ package com.maliszew.proximitycontacttracing.views
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.lifecycle.get
 import com.maliszew.proximitycontacttracing.R
 import com.maliszew.proximitycontacttracing.databinding.MainFragmentBinding
 import com.maliszew.proximitycontacttracing.viewmodels.MainViewModel
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
 
@@ -36,6 +38,10 @@ class MainFragment : Fragment() {
         val mainFragmentBinding: MainFragmentBinding = DataBindingUtil.setContentView(requireActivity(), R.layout.main_fragment)
         mainFragmentBinding.viewModel = viewModel.getObserver()
         mainFragmentBinding.executePendingBindings()
+
+        switch01.setOnCheckedChangeListener { viewModel, isChecked ->
+            Log.d("maliszew/Fragment", "??????? $isChecked")
+        }
     }
 
 }

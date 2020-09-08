@@ -65,5 +65,18 @@ data class Contacts(
                 Log.d("maliszew/Contacts", "building Contacts object: $contact")
             }
         }
+
+        fun logManualContacts(beacon: String, eventType: String) {
+            val contact: Contacts = Contacts(
+                "2",
+                beacon,
+                "",
+                Calendar.getInstance().timeInMillis.toString(),
+                "manual",
+                eventType
+            )
+            contact.writeNewContact(contact)
+        }
     }
+
 }
