@@ -8,6 +8,7 @@ import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.maliszew.proximitycontacttracing.models.Contacts
 
 class MainViewModel : ViewModel() {
     private val myObserver: Observer = Observer()
@@ -21,21 +22,18 @@ class MainViewModel : ViewModel() {
         @Bindable
         var switch1: Boolean? = null
 
-        fun afterSwitchClicked(input: Boolean) {
-                Log.d("maliszew/ViewModel", "switch changed to $input")
-        }
+        fun afterSwitchClicked(input: Boolean, beacon: String) {
+            Log.d("maliszew/ViewModel", "switch for $beacon changed to $input")
 
-        /*
-        @Bindable
-        var availabilityState = MutableLiveData<Boolean>(false)
-
-        val afterSwitchChanged: LiveData<Boolean> = Transformations.map(availabilityState) {
-            if (it) {
-
+            if(input) {
+                Contacts.logManualContacts(beacon, "onEnter")
             }
-            Log.d("maliszew/ViewModel", "switch changed to $availabilityState")
+            else {
+                Contacts.logManualContacts(beacon, "onExit")
+            }
         }
-        */
+
+
     }
 
 

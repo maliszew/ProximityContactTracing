@@ -57,7 +57,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:text="Test beetroot"
-            android:onCheckedChanged="@{(switch, checked) -> viewModel.afterSwitchClicked(checked)}"
+            android:onCheckedChanged='@{(switch, checked) -> viewModel.afterSwitchClicked(checked, "beetroot")}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/switch02"
             app:layout_constraintStart_toStartOf="parent" />
@@ -69,6 +69,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:text="Test candy"
+            android:onCheckedChanged='@{(switch, checked) -> viewModel.afterSwitchClicked(checked, "candy")}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -80,18 +81,10 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:text="Test lemon"
+            android:onCheckedChanged='@{(switch, checked) -> viewModel.afterSwitchClicked(checked, "lemon")}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/switch02" />
-
-        <Switch
-            android:id="@+id/switch4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Switch"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
