@@ -3,6 +3,8 @@ package com.maliszew.proximitycontacttracing.models
 import android.content.Context
 import android.util.Log
 import com.estimote.proximity_sdk.api.*
+import com.maliszew.proximitycontacttracing.MainActivity
+import com.maliszew.proximitycontacttracing.viewmodels.MainViewModel
 
 class ProximityManager(private val context: Context) {
     private var previousContexts: Set<ProximityZoneContext> = emptySet()
@@ -36,17 +38,19 @@ class ProximityManager(private val context: Context) {
 
             }
             .onContextChange { currentContexts: Set<ProximityZoneContext> ->
-                // val nearbyContent = ArrayList<>
+                val nearbyContent = ArrayList<ProximityContent>(currentContexts.size)
                 // Log.d("maliszew/Scanner",  "\n\n previous context: $previousContexts \n current context: $currentContexts")
 
                 compareContexts(previousContexts, currentContexts)
 
-                var i: Int = 0
+                //var i: Int = 0
                 for (context in currentContexts) {
-                    Log.d("maliszew/Scanner", "inside iteration $i of onContextChange... context: ${context.deviceId} and ${context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!"}")
-                    i++
+                    //Log.d("maliszew/Scanner", "inside iteration $i of onContextChange... context: ${context.deviceId} and ${context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!"}")
+                    //i++
+                    nearbyContent.add(ProximityContent((context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!"), context.deviceId))
                 }
                 previousContexts = currentContexts
+                (context as MainActivity).viewModel.getObserver().setNearbyContent(nearbyContent)
             }
             .build()
 
