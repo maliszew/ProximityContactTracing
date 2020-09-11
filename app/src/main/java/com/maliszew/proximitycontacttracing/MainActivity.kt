@@ -21,6 +21,7 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.main_activity)
         //val activityMainBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         val mainActivityBinding: MainActivityBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+
         viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get<MainViewModel>(
             MainViewModel::class.java)
         mainActivityBinding.viewModel = viewModel.getObserver()

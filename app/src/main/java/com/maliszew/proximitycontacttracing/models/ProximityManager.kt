@@ -1,10 +1,11 @@
 package com.maliszew.proximitycontacttracing.models
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import com.estimote.proximity_sdk.api.*
 import com.maliszew.proximitycontacttracing.MainActivity
-import com.maliszew.proximitycontacttracing.viewmodels.MainViewModel
+import com.maliszew.proximitycontacttracing.R
 
 class ProximityManager(private val context: Context) {
     private var previousContexts: Set<ProximityZoneContext> = emptySet()
@@ -47,7 +48,14 @@ class ProximityManager(private val context: Context) {
                 for (context in currentContexts) {
                     //Log.d("maliszew/Scanner", "inside iteration $i of onContextChange... context: ${context.deviceId} and ${context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!"}")
                     //i++
-                    nearbyContent.add(ProximityContent((context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!"), context.deviceId))
+                    var title = (context.attachments["maliszew-contact-tracing/title"] ?: "unknown!!!")
+                    nearbyContent.add(
+                        ProximityContent(
+                            title,
+                            context.deviceId,
+                            getEstimoteColor(title)
+                        )
+                    )
                 }
                 previousContexts = currentContexts
                 (context as MainActivity).viewModel.getObserver().setNearbyContent(nearbyContent)
@@ -89,6 +97,23 @@ class ProximityManager(private val context: Context) {
         }
     }
 
+    internal fun getEstimoteColor(colorName: String): Int {
+        return when (colorName) {
+            "ice" -> Color.rgb(109, 170, 199)
+
+            "blueberry" -> Color.rgb(36, 24, 93)
+
+            "candy", "candy1" -> Color.rgb(219, 122, 167)
+
+            "mint" -> Color.rgb(155, 186, 160)
+
+            "beetroot", "beetroot1" -> Color.rgb(84, 0, 61)
+
+            "lemon", "lemon1" -> Color.rgb(195, 192, 16)
+
+            else -> R.color.design_default_color_background
+        }
+    }
 
 
 }

@@ -1,3 +1,7 @@
 package com.maliszew.proximitycontacttracing.models
 
-class ProximityContent internal constructor(internal val title: String, internal val id: String)
+data class ProximityContent (
+    val title: String,
+    val id: String,
+    val color: Int
+)

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="viewModel"
+            name="viewModelFragment"
             type="com.maliszew.proximitycontacttracing.viewmodels.MainViewModel.Observer" />
     </data>
 
@@ -18,28 +18,36 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MainFragment"
+            android:layout_marginEnd="16dp"
+            android:text="Detected current nearby contacts:"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            tools:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView2"
-            android:layout_width="404dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="8dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:items="@{viewModelFragment.nearbyContentData}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/switch02"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar2"
+            tools:listitem="@layout/recycler_rows" />
 
         <ProgressBar
             android:id="@+id/progressBar2"
@@ -47,8 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/message"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch01"
@@ -57,7 +67,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:text="Test beetroot"
-            android:onCheckedChanged='@{(switch, checked) -> viewModel.afterSwitchClicked(checked, "beetroot")}'
+            android:onCheckedChanged='@{(switch, checked) -> viewModelFragment.afterSwitchClicked(checked, "beetroot")}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/switch02"
             app:layout_constraintStart_toStartOf="parent" />
@@ -69,7 +79,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:text="Test candy"
-            android:onCheckedChanged='@{(switch, checked) -> viewModel.afterSwitchClicked(checked, "candy")}'
+            android:onCheckedChanged='@{(switch, checked) -> viewModelFragment.afterSwitchClicked(checked, "candy")}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -81,7 +91,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:text="Test lemon"
-            android:onCheckedChanged='@{(switch, checked) -> viewModel.afterSwitchClicked(checked, "lemon")}'
+            android:onCheckedChanged='@{(switch, checked) -> viewModelFragment.afterSwitchClicked(checked, "lemon")}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/switch02" />
