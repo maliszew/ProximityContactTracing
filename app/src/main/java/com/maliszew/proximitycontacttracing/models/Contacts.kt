@@ -20,8 +20,7 @@ data class Contacts(
     private var database: DatabaseReference = Firebase.database.reference
 
     @Exclude
-    private fun writeNewContact(contact: Contacts /*receiverId: String, senderName: String, senderId: String, time: String, tracingType: String, eventType: String*/) {
-        // val contact = Contacts(receiverId, senderName, senderId, time, tracingType, eventType)
+    private fun writeNewContact(contact: Contacts) {
         val contactValues = contact.toMap()
 
         val key = database.child("contacts").push().key
@@ -54,7 +53,7 @@ data class Contacts(
         fun logContacts(contexts: Set<ProximityZoneContext>, eventType: String, tracingType: String) {
             for(context in contexts) {
                 val contact: Contacts = Contacts(
-                    "2", // TODO replace with real device ID
+                    "3", // TODO replace with real device ID
                     context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!",
                     context.deviceId,
                     Calendar.getInstance().timeInMillis.toString(), // LocalDateTime.now().toString() -> requires API level 26
@@ -62,13 +61,13 @@ data class Contacts(
                     eventType
                 )
                 contact.writeNewContact(contact)
-                Log.d("maliszew/Contacts", "building Contacts object: $contact")
+                // Log.d("maliszew/Contacts", "building Contacts object: $contact")
             }
         }
 
         fun logManualContacts(beacon: String, eventType: String) {
             val contact: Contacts = Contacts(
-                "2",
+                "3",
                 beacon,
                 "",
                 Calendar.getInstance().timeInMillis.toString(),

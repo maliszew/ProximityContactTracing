@@ -27,9 +27,6 @@ class ProximityManager(private val context: Context) {
         val zone = ProximityZoneBuilder()
             .forTag("maliszew-contact-tracing")
             .inNearRange()
-            .also {
-                Log.d("maliszew/Scanner", "Inside zone builder: $it")
-            }
             .onEnter {
                 Log.d("maliszew/Scanner", "inside onEnter... size = $context and ${it.deviceId} and ${it.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!"}")
 
@@ -40,15 +37,11 @@ class ProximityManager(private val context: Context) {
             }
             .onContextChange { currentContexts: Set<ProximityZoneContext> ->
                 val nearbyContent = ArrayList<ProximityContent>(currentContexts.size)
-                // Log.d("maliszew/Scanner",  "\n\n previous context: $previousContexts \n current context: $currentContexts")
 
                 compareContexts(previousContexts, currentContexts)
 
-                //var i: Int = 0
                 for (context in currentContexts) {
-                    //Log.d("maliszew/Scanner", "inside iteration $i of onContextChange... context: ${context.deviceId} and ${context.attachments["maliszew-contact-tracing/title"]  ?: "unknown!!!"}")
-                    //i++
-                    var title = (context.attachments["maliszew-contact-tracing/title"] ?: "unknown!!!")
+                    val title = (context.attachments["maliszew-contact-tracing/title"] ?: "unknown!!!")
                     nearbyContent.add(
                         ProximityContent(
                             title,

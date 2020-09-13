@@ -1,16 +1,15 @@
 package com.maliszew.proximitycontacttracing
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
+import com.maliszew.proximitycontacttracing.databinding.MainActivityBinding
 import com.maliszew.proximitycontacttracing.models.ProximityManager
-import com.maliszew.proximitycontacttracing.views.MainFragment
-import com.maliszew.proximitycontacttracing.databinding.*
 import com.maliszew.proximitycontacttracing.viewmodels.MainViewModel
+import com.maliszew.proximitycontacttracing.views.MainFragment
 
 class MainActivity : FragmentActivity() {
     private var proximityContentManager: ProximityManager? = null
@@ -19,7 +18,6 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        //val activityMainBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         val mainActivityBinding: MainActivityBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
 
         viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get<MainViewModel>(

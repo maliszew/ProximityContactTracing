@@ -22,12 +22,6 @@ class MainViewModel : ViewModel() {
 
     inner class Observer() : BaseObservable() {
 
-        @Bindable
-        var switch1: Boolean? = null
-
-        @Bindable
-        var beaconnn: ProximityContent? = null
-
         private var nearbyContent: List<ProximityContent> = ArrayList()
 
         @Bindable
@@ -45,9 +39,7 @@ class MainViewModel : ViewModel() {
         init {
             viewModelScope.launch {
                 loadData()
-                Log.d("maliszew/ViewModel", "load DATA")
             }
-            Log.d("maliszew/ViewModel", "load DATA outside")
         }
 
         fun afterSwitchClicked(input: Boolean, beacon: String) {
@@ -63,7 +55,6 @@ class MainViewModel : ViewModel() {
 
         fun setNearbyContent(nearbyContents: List<ProximityContent>) {
             this.nearbyContent = nearbyContents
-            //this.nearbyContentData = nearbyContents
             for(content in nearbyContent) {
                 Log.d("maliszew/ViewModel", "current beacons nearby: ${content.title} ; but DATA is ${nearbyContentData.value}")
             }
@@ -75,13 +66,5 @@ class MainViewModel : ViewModel() {
             variableId = BR.beacon,
             layoutId = R.layout.recycler_rows
         )
-
-        //private fun updateNearbyContent() {
-        //    notifyPropertyChanged(BR.nearbyContent)
-        //}
-
-
     }
-
-
 }
